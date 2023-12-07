@@ -1,0 +1,16 @@
+{
+    "name": "MANAGER FILE",
+    "short_name": "MANAGER FILE",
+    "description": "MANAGER FILE",
+    "icons": [
+        {
+            "src": "../template/assets/images/folder.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#0d0072",
+    "background_color": "#0d0072"
+}

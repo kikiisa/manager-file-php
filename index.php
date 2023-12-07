@@ -26,6 +26,7 @@ if(isset($_POST["login"]))
     <title>Login</title>
     <link rel="stylesheet" href="public/template/assets/css/main/app.css">
     <link rel="stylesheet" href="public/template/assets/css/main/app-dark.css">
+    <link rel="manifest" href="public/js/web.webmanifest">
     <link rel="stylesheet" href="public/template/assets/css/shared/iconly.css">
     <link rel="stylesheet" href="public/template/assets/extensions/toastify-js/src/toastify.css">
 
@@ -73,5 +74,6 @@ if(isset($_POST["login"]))
             }).showToast();
         </script>
     <?php } ?>
+    <script src="public/js/register.js"></script>
 </body>
 </html>
