@@ -116,7 +116,8 @@ if (isset($_POST["eject"])) {
                                                     <td><?= $row["keterangan"] ?></td>
                                                     <td>
                                                         <?php if (isset($_SESSION["device"])) { ?>
-                                                            <a class="btn btn-primary" href="/file/<?= $row['path_file'] ?>"><i class="bi bi-download"></i></a>
+                                                            <!-- <a class="btn btn-primary" href="/file/<?= $row['path_file'] ?>"><i class="bi bi-download"></i></a> -->
+                                                            <a class="btn btn-primary" href="view.php?file=<?= $row['path_file'] ?>"><i class="bi bi-download"></i></a>
                                                         <?php } else { ?>
                                                             <a href="javascript:void()" class="badge bg-danger">Belum Terhubung</a>
                                                         <?php } ?>
