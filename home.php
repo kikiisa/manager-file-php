@@ -22,10 +22,11 @@ if (isset($_POST["simpan"])) {
     $keterangan = $_POST["keterangan"];
     $files = $_FILES["files"]["name"];
     $tmp_files = $_FILES["files"]["tmp_name"];
+    $ekstensi = pathinfo($_FILES["files"]["name"], PATHINFO_EXTENSION);
     $folder = $_SESSION["device"] . "/";
     $destination2 = "file/";
     // Membuat nama file yang unik dengan tambahan timestamp
-    $uniqueFileName = uniqid() . '_' . $files;
+    $uniqueFileName = uniqid() . '.' . $ekstensi;
     $simpan = move_uploaded_file($tmp_files, $folder . $uniqueFileName);
     copy($folder . $uniqueFileName, $destination2 . $uniqueFileName);
     $db->query("INSERT INTO file_upload(nama_file, keterangan,path_file) VALUES('$judul', '$keterangan', '$uniqueFileName')");
@@ -41,6 +42,21 @@ if (isset($_POST["simpan"])) {
 if (isset($_POST["eject"])) {
     unset($_SESSION["device"]);
     header("location:home.php");
+}
+if(isset($_GET['hapus']))
+{
+    $id = $_GET["hapus"];
+    $data = $db->query("SELECT * FROM file_upload WHERE id = '$id' ")->fetch_object()->path_file;
+    $dir1 = unlink($_SESSION["device"] . "/" .$data);
+    $dir2 = unlink("file/" .$data);
+    $delete = $db->query("DELETE FROM file_upload WHERE id = '$id' ");
+    if($delete)
+    {
+        header("location:home.php");
+    }else{
+        header("location:home.php");
+    }
+
 }
 
 ?>
@@ -82,7 +98,8 @@ if (isset($_POST["eject"])) {
                                     <p class="mt-3">Nama Device Saat Ini : <strong><?= $_SESSION["device"] ?></strong></p>
                                     <form action="" method="post">
                                         <button class="btn btn-danger" type="submit" name="eject">Eject Device</button>
-                                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload File</a>
+                                        <a class="btn btn-primary" data-bs-toggle
+                                        ="modal" data-bs-target="#exampleModal">Upload File</a>
                                     </form>
                                 <?php } else { ?>
                                     <span class="badge bg-danger">Perangkat Tidak Terkoneksi</span>
@@ -101,7 +118,6 @@ if (isset($_POST["eject"])) {
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Nama File</th>
-
                                                 <th scope="col">Keterangan</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
@@ -116,7 +132,8 @@ if (isset($_POST["eject"])) {
                                                     <td><?= $row["keterangan"] ?></td>
                                                     <td>
                                                         <?php if (isset($_SESSION["device"])) { ?>
-                                                            <!-- <a class="btn btn-primary" href="/file/<?= $row['path_file'] ?>"><i class="bi bi-download"></i></a> -->
+                                                            
+                                                            <a href="home.php?hapus=<?= $row['id'] ?>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                                                             <a class="btn btn-primary" href="view.php?file=<?= $row['path_file'] ?>"><i class="bi bi-download"></i></a>
                                                         <?php } else { ?>
                                                             <a href="javascript:void()" class="badge bg-danger">Belum Terhubung</a>
