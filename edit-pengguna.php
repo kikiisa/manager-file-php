@@ -5,7 +5,8 @@ if(!isset($_SESSION["login"]))
 {
     header("location:index.php");
 }
-$data = $db->query("SELECT * FROM admin WHERE id = '$_SESSION[id]'")->fetch_array();
+$id = $_GET["edit"];
+$data = $db->query("SELECT * FROM mahasiswa WHERE id = '$id'")->fetch_array();
 if(isset($_POST["update"]))
 {
     
@@ -46,6 +47,13 @@ if(isset($_POST["update"]))
     <link rel="stylesheet" href="public/template/assets/extensions/toastify-js/src/toastify.css">
 
 </head>
+<style>
+    img{
+        width: 100%; /* Membuat gambar sesuai dengan lebar div */
+        height: auto; /* Memastikan gambar sesuai dengan proporsi aslinya */
+        display: block; /* Menghilangkan space tambahan di bawah gambar */
+    }
+</style>
 <body>
     <div id="app">
         <?php require_once('layouts/sidebar.php') ?>
@@ -60,25 +68,33 @@ if(isset($_POST["update"]))
             </div>
             <div class="page-content">
                 <section class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="<?= $data['profile'] ?>" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-6 col-lg-6">
                         <div class="card ">
                             <div class="card-header">
                                 <h4>Edit Akun</h4>
                             </div>
                             <div class="card-body">
-                                <form action="" method="post">
+                                <form action="pengguna-control.php" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="">Nomor</label>
+                                        <input hidden type="text" name="id" value="<?= $data['id'] ?>" class="form-control">
+                                        <input required name="nomor" type="text" value="<?= $data['nomor'] ?>" placeholder="Username" class="form-control">
+                                    </div>
                                     <div class="form-group">
                                         <label for="">Nama Lengkap</label>
-                                        <input required type="text" value="<?= $data["name"] ?>" placeholder="Nama Lengkap" name="name" class="form-control">
+                                        <input required type="text" value="<?= $data["nama_lengkap"] ?>" placeholder="Nama Lengkap" name="nama_lengkap" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Username</label>
-                                        <input required type="text" value="<?= $data["username"] ?>" placeholder="Username" name="username" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Password</label>
-                                        <input type="password" placeholder="Password" name="password" class="form-control">
-                                        <small class="text-danger">Kosongkan Jika Tidak Ingin Mengubah</small>
+                                        <label for="">Upload Foto</label>
+                                        <input type="file" name="files" class="form-control-file">
+                                        <small class="text-info fw-bold ms-2">* Kosongkan Jika Tidak Ingin Mengubah</small>
                                     </div>
                                    <button class="btn btn-primary" name="update">simpan</button>
                                 </form>
@@ -117,5 +133,4 @@ if(isset($_POST["update"]))
         <?php } ?>
     <?php } ?>
 </body>
-
 </html>

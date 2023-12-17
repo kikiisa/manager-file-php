@@ -31,7 +31,7 @@ if(isset($_POST["login"]))
     <link rel="stylesheet" href="public/template/assets/extensions/toastify-js/src/toastify.css">
 
 </head>
-<body>
+<body style="background-color:#374151;">
     <div class="row justify-content-center">
         <div class="col-lg-4 mt-4">
             <div class="card shadow">

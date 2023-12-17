@@ -49,15 +49,21 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a href="/pengguna.php" class='sidebar-link'>
+                        <i class="bi bi-files"></i>
+                        <span>Data Pengguna</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a href="/profile.php" class='sidebar-link'>
                         <i class="bi bi-people"></i>
-                        <span>Profile</span>
+                        <span>Akun</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="/logout.php" class='sidebar-link'>
                         <i class="bi bi-arrow-left"></i>
-                        <span>Logout</span>
+                        <span>Keluar</span>
                     </a>
                 </li>                 
             </ul>
